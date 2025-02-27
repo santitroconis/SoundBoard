@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoundBoard</title>
+    <link rel="stylesheet" href="src/styles/main.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <div class="grid-container">
+        <div class="grid-item header">Header</div>
+        <div class="grid-item playlists">
+          <playlists-component></playlists-component>
+        </div>
+        <div class="grid-item sounds">
+          <sound-list-component></sound-list-component>
+        </div>
+        <div class="grid-item playlists-footer">
+          <!-- <playlist-footer></playlist-footer> -->
+        </div>
+        <div class="grid-item sounds-footer">
+          <active-sound-component></active-sound-component>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="src/index.js"></script>
+  </body>
+</html>
