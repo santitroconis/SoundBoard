@@ -81,12 +81,27 @@ class SoundComponent extends HTMLElement {
           (s) => s.name !== this.sound.name
         );
         savePlaylists(playlists);
+        window.dispatchEvent(new CustomEvent("playlists-updated"));
+        window.dispatchEvent(new CustomEvent("sounds-updated"));
+        window.dispatchEvent(
+          new CustomEvent("playlist-selected", { detail: playlist })
+        );
       }
     } else {
-      // Eliminar el sonido de localStorage
+      // Eliminar el sonido de localStorage y de todas las playlists
       let sounds = getSounds();
       sounds = sounds.filter((s) => s.name !== this.sound.name);
       saveSounds(sounds);
+
+      let playlists = getPlaylists();
+      playlists.forEach((playlist) => {
+        playlist.sounds = playlist.sounds.filter(
+          (s) => s.name !== this.sound.name
+        );
+      });
+      savePlaylists(playlists);
+      window.dispatchEvent(new CustomEvent("playlists-updated"));
+      window.dispatchEvent(new CustomEvent("sounds-updated"));
     }
 
     // Eliminar el elemento del DOM

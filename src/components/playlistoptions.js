@@ -35,6 +35,7 @@ class PlaylistOptionsComponent extends HTMLElement {
         alert(
           `Sound "${soundName}" added to playlist "${this.playlist.name}".`
         );
+        window.dispatchEvent(new CustomEvent("sounds-updated"));
       }
     } else {
       alert("Sound not found or no active playlist.");

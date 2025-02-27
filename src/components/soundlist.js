@@ -8,17 +8,6 @@ class SoundListComponent extends HTMLElement {
     this.sounds = getSounds();
   }
 
-  static get observedAttributes() {
-    return ["playlist"];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (name === "playlist") {
-      this.playlist = newValue ? JSON.parse(newValue) : null;
-      this.render();
-    }
-  }
-
   connectedCallback() {
     this.render();
     window.addEventListener("playlist-selected", (event) => {
@@ -31,6 +20,9 @@ class SoundListComponent extends HTMLElement {
     });
     window.addEventListener("sounds-updated", () => {
       this.sounds = getSounds();
+      this.render();
+    });
+    window.addEventListener("playlists-updated", () => {
       this.render();
     });
   }

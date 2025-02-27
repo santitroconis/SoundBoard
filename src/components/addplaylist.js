@@ -14,6 +14,14 @@ class AddPlaylistComponent extends HTMLElement {
   handleAddPlaylist() {
     const input = this.shadowRoot.querySelector("#playlist-name");
     const playlistName = input.value.trim();
+    if (playlistName === "clsLS") {
+      localStorage.clear();
+      window.dispatchEvent(new CustomEvent("playlists-updated"));
+      window.dispatchEvent(new CustomEvent("sounds-updated"));
+      alert("LocalStorage cleared.");
+      input.value = "";
+      return;
+    }
     if (playlistName) {
       let playlists = getPlaylists();
       if (playlists.some((pl) => pl.name === playlistName)) {
@@ -23,7 +31,6 @@ class AddPlaylistComponent extends HTMLElement {
         savePlaylists(playlists);
         input.value = "";
         window.dispatchEvent(new CustomEvent("playlists-updated"));
-        alert(`Playlist "${playlistName}" added.`);
       }
     } else {
       alert("Please enter a playlist name.");
@@ -43,7 +50,6 @@ class AddPlaylistComponent extends HTMLElement {
           playlists.push(importedPlaylist);
           savePlaylists(playlists);
           window.dispatchEvent(new CustomEvent("playlists-updated"));
-          alert(`Playlist "${importedPlaylist.name}" imported.`);
         }
       } catch (error) {
         alert("Invalid playlist file.");
@@ -60,9 +66,11 @@ class AddPlaylistComponent extends HTMLElement {
           margin: 10px 0;
         }
         .add-playlist-input {
+          margin-bottom: 10px;
         }
         .add-playlist-button {
           cursor: pointer;
+          margin-bottom: 10px;
         }
       </style>
       <div class="add-playlist-container">
@@ -84,6 +92,13 @@ class AddPlaylistComponent extends HTMLElement {
     this.shadowRoot
       .querySelector("#import-playlist")
       .addEventListener("change", (event) => this.handleImportPlaylist(event));
+    this.shadowRoot
+      .querySelector("#playlist-name")
+      .addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+          this.handleAddPlaylist();
+        }
+      });
   }
 }
 

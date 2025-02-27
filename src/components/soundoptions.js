@@ -18,7 +18,8 @@ class SoundOptionsComponent extends HTMLElement {
       const sounds = getSounds();
       sounds.push({ name: file.name, url: base64 });
       saveSounds(sounds);
-      this.dispatchEvent(new CustomEvent("sound-added"));
+      window.dispatchEvent(new CustomEvent("sounds-updated"));
+      alert(`Sound "${file.name}" added.`);
     }
   }
 

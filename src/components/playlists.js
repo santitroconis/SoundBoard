@@ -14,6 +14,10 @@ class PlaylistsComponent extends HTMLElement {
       this.playlists = getPlaylists();
       this.render();
     });
+    window.addEventListener("playlist-selected", (event) => {
+      this.activePlaylist = event.detail.name;
+      this.render();
+    });
   }
 
   render() {
@@ -38,7 +42,9 @@ class PlaylistsComponent extends HTMLElement {
           ${this.playlists
             .map(
               (playlist) =>
-                `<li class="playlist-item" data-name="${playlist.name}">${playlist.name}</li>`
+                `<li class="playlist-item ${
+                  this.activePlaylist === playlist.name ? "active" : ""
+                }" data-name="${playlist.name}">${playlist.name}</li>`
             )
             .join("")}
         </ul>
