@@ -5,6 +5,7 @@ class ActiveSoundComponent extends HTMLElement {
     this.sound = null;
     this.audio = new Audio();
     this.audio.addEventListener("ended", () => this.onAudioEnded());
+    this.audio.addEventListener("timeupdate", () => this.saveCurrentState());
   }
 
   static get observedAttributes() {
@@ -20,6 +21,7 @@ class ActiveSoundComponent extends HTMLElement {
   }
 
   connectedCallback() {
+    this.loadLastState();
     this.render();
   }
 
@@ -43,6 +45,24 @@ class ActiveSoundComponent extends HTMLElement {
     this.render();
   }
 
+  saveCurrentState() {
+    const state = {
+      sound: this.sound,
+      currentTime: this.audio.currentTime,
+    };
+    localStorage.setItem("activeSoundState", JSON.stringify(state));
+  }
+
+  loadLastState() {
+    const state = JSON.parse(localStorage.getItem("activeSoundState"));
+    if (state) {
+      this.sound = state.sound;
+      this.audio.src = this.sound.url;
+      this.audio.currentTime = state.currentTime;
+      this.render();
+    }
+  }
+
   render() {
     if (!this.sound) return;
 
@@ -50,12 +70,13 @@ class ActiveSoundComponent extends HTMLElement {
       <style>
         .active-sound-container {
           display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin: 10px 0;
+          width: 400px;
+          background-color: #ffffff;
+          justify-content: space-between;
         }
         .sound-name {
-          margin-bottom: 5px;
+          color: #353535;
+          font-weight: bold;
         }
         .play-button {
           cursor: pointer;

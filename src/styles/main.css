@@ -38,3 +38,11 @@ html {
   grid-column: span 2;
   background-color: var(--primary-color);
 }
+
+.sounds-footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  padding: 0 20px;
+  box-sizing: border-box;
+}

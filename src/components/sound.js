@@ -37,9 +37,9 @@ class SoundComponent extends HTMLElement {
       <style>
         .sound-container {
           display: flex;
+          width: 400px;
           justify-content: space-between;
           align-items: center;
-          margin: 5px 0;
         }
         .sound-name {
           flex-grow: 1;

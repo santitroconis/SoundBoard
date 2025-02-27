@@ -21,6 +21,18 @@ class SoundListComponent extends HTMLElement {
 
   connectedCallback() {
     this.render();
+    window.addEventListener("playlist-selected", (event) => {
+      this.playlist = event.detail;
+      this.render();
+    });
+    window.addEventListener("playlist-deselected", () => {
+      this.playlist = null;
+      this.render();
+    });
+    window.addEventListener("sounds-updated", () => {
+      this.sounds = getSounds();
+      this.render();
+    });
   }
 
   render() {

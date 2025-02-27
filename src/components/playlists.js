@@ -9,6 +9,13 @@ class PlaylistsComponent extends HTMLElement {
     this.render();
   }
 
+  connectedCallback() {
+    window.addEventListener("playlists-updated", () => {
+      this.playlists = getPlaylists();
+      this.render();
+    });
+  }
+
   render() {
     this.shadowRoot.innerHTML = `
       <style>
@@ -53,10 +60,7 @@ class PlaylistsComponent extends HTMLElement {
       this.shadowRoot.querySelectorAll(".playlist-item").forEach((item) => {
         item.classList.remove("active");
       });
-      const soundList = document.querySelector("sound-list-component");
-      if (soundList) {
-        soundList.removeAttribute("playlist");
-      }
+      window.dispatchEvent(new CustomEvent("playlist-deselected"));
     } else {
       // Seleccionar una nueva playlist
       this.activePlaylist = playlistName;
@@ -64,10 +68,9 @@ class PlaylistsComponent extends HTMLElement {
         item.classList.remove("active");
       });
       event.target.classList.add("active");
-      const soundList = document.querySelector("sound-list-component");
-      if (soundList) {
-        soundList.setAttribute("playlist", JSON.stringify(playlist));
-      }
+      window.dispatchEvent(
+        new CustomEvent("playlist-selected", { detail: playlist })
+      );
     }
   }
 }

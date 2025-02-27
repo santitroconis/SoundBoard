@@ -1,5 +1,5 @@
-const PLAYLISTS_KEY = "soundboard_playlists";
-const SOUNDS_KEY = "soundboard_sounds";
+const PLAYLISTS_KEY = "playlists";
+const SOUNDS_KEY = "sounds";
 
 export const savePlaylists = (playlists) => {
   localStorage.setItem(PLAYLISTS_KEY, JSON.stringify(playlists));
