@@ -28,7 +28,7 @@ html {
 
 .grid-item {
   background-color: var(--secondary-color);
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,6 +37,11 @@ html {
 .header {
   grid-column: span 2;
   background-color: var(--primary-color);
+  justify-content: start;
+  padding-left: 50px;
+  color: var(--secondary-color);
+  font-size: 20px;
+  z-index: 2;
 }
 
 .sounds-footer {
@@ -45,4 +50,16 @@ html {
   background-color: var(--primary-color);
   padding: 0 20px;
   box-sizing: border-box;
+}
+
+.playlists-footer {
+  background-color: var(--primary-color);
+  padding: 0 20px;
+  box-sizing: border-box;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+.playlists {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 }
