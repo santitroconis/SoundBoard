@@ -23,31 +23,42 @@ class PlaylistsComponent extends HTMLElement {
   render() {
     this.shadowRoot.innerHTML = `
       <style>
-        .playlists-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-        .playlist-item {
-          margin: 5px 0;
-          cursor: pointer;
-        }
-        .playlist-item.active {
-          font-weight: bold;
-        }
+      .playlists-container {
+        display: flex;
+        font-size: 20px;        
+        flex-direction: column;
+        align-items: center;
+      }
+      .playlists-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .playlist-item {
+        cursor: pointer;
+        margin: 5px 0;
+        padding: 5px 80px;
+        border-radius: 30px;
+        background-color: #f0f0f0;
+
+      }
+      .playlist-item.active {
+        background-color: #e0e0e0;
+      }
       </style>
       <div class="playlists-container">
-        <h2>Playlists</h2>
-        <ul id="playlists-list">
-          ${this.playlists
-            .map(
-              (playlist) =>
-                `<li class="playlist-item ${
-                  this.activePlaylist === playlist.name ? "active" : ""
-                }" data-name="${playlist.name}">${playlist.name}</li>`
-            )
-            .join("")}
-        </ul>
+      <h2 class="playlists-title">Playlists</h2>
+      <div id="playlists-list">
+        ${this.playlists
+          .map(
+            (playlist) =>
+              `<div class="playlist-item ${
+                this.activePlaylist === playlist.name ? "active" : ""
+              }" data-name="${playlist.name}">${playlist.name}</div>`
+          )
+          .join("")}
+      </div>
       </div>
     `;
 

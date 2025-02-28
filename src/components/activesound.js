@@ -68,25 +68,38 @@ class ActiveSoundComponent extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>
-        .active-sound-container {
-          display: flex;
-          width: 400px;
-          background-color: #ffffff;
-          justify-content: space-between;
-        }
-        .sound-name {
-          color: #353535;
-          font-weight: bold;
-        }
-        .play-button {
-          cursor: pointer;
-        }
+      .active-sound-container {
+        display: flex;
+        width: 400px;
+        padding: 10px;
+        border-radius: 20px;
+        background-color: #ffffff;
+        justify-content: space-between;
+      }
+      .sound-name {
+        color: #353535;
+        font-weight: bold;
+      }
+      .play-button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        outline: none;
+      }
+      .play-button svg {
+        width: 10px;
+        height: 10px;
+      }
       </style>
       <div class="active-sound-container">
-        <span class="sound-name">${this.sound.name}</span>
-        <button class="play-button">${
-          this.audio.paused ? "Play" : "Pause"
-        }</button>
+      <span class="sound-name">${this.sound.name}</span>
+      <button class="play-button">
+        ${
+          this.audio.paused
+            ? `<svg viewBox="0 0 24 24" fill="#353535"><path d="M8 5v14l11-7z"/></svg>`
+            : `<svg viewBox="0 0 24 24" fill="#353535"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
+        }
+      </button>
       </div>
     `;
 

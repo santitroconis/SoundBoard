@@ -37,7 +37,7 @@ class SoundComponent extends HTMLElement {
       <style>
         .sound-container {
           display: flex;
-          width: 400px;
+          width: 80%;
           justify-content: space-between;
           align-items: center;
         }
@@ -48,6 +48,9 @@ class SoundComponent extends HTMLElement {
         .delete-button {
           margin-left: 10px;
           cursor: pointer;
+        }
+        .sound-name:hover {
+          text-decoration: underline;
         }
       </style>
       <div class="sound-container">

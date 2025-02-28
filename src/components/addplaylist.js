@@ -74,7 +74,7 @@ class AddPlaylistComponent extends HTMLElement {
         }
       </style>
       <div class="add-playlist-container">
-        <input type="text" id="playlist-name" class="add-playlist-input" placeholder="Playlist name" />
+        <input type="text" id="playlist-name" class="add-playlist-input" placeholder="Playlist name" maxlength="25" />
         <button class="add-playlist-button" id="add-button">Add</button>
         <input type="file" id="import-playlist" style="display: none;" />
         <button class="add-playlist-button" id="import-button">Import</button>

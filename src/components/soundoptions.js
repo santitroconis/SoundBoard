@@ -12,15 +12,20 @@ class SoundOptionsComponent extends HTMLElement {
   }
 
   async handleAddSound(event) {
-    const file = event.target.files[0];
-    if (file) {
+    const files = event.target.files;
+    const sounds = getSounds();
+    for (const file of files) {
       const base64 = await fileToBase64(file);
-      const sounds = getSounds();
-      sounds.push({ name: file.name, url: base64 });
-      saveSounds(sounds);
-      window.dispatchEvent(new CustomEvent("sounds-updated"));
-      alert(`Sound "${file.name}" added.`);
+      let soundName = file.name;
+      if (soundName.endsWith(".mp3")) {
+        soundName = soundName.slice(0, -4); // Eliminar la extensión .mp3
+      }
+      sounds.push({ name: soundName, url: base64 });
     }
+    saveSounds(sounds);
+    window.dispatchEvent(new CustomEvent("playlists-updated"));
+    window.dispatchEvent(new CustomEvent("sounds-updated"));
+    alert(`Sounds added.`);
   }
 
   handleExportSounds() {
@@ -49,7 +54,7 @@ class SoundOptionsComponent extends HTMLElement {
         }
       </style>
       <div class="sound-options-container">
-        <input type="file" id="add-sound" style="display: none;" />
+        <input type="file" id="add-sound" style="display: none;" multiple />
         <button class="sound-options-button" id="add-button">Add</button>
         <button class="sound-options-button" id="export-button">Export</button>
       </div>

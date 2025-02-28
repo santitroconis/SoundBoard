@@ -24,6 +24,11 @@ class SoundListComponent extends HTMLElement {
     });
     window.addEventListener("playlists-updated", () => {
       this.render();
+      if (this.playlist) {
+        window.dispatchEvent(
+          new CustomEvent("playlist-selected", { detail: this.playlist })
+        );
+      }
     });
   }
 
@@ -31,29 +36,36 @@ class SoundListComponent extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         .playlist-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+      
+        }
+        #playlist-title {
+          margin: 0;
+        }
+        #sounds-list {
+          overflow-y: scroll;
+          scrollbar-width: none;
         }
         .sound-item {
-          margin: 5px 0;
+          margin: 20px 0;
         }
       </style>
       <div class="playlist-container">
-        <h2>${this.playlist ? this.playlist.name : "All Sounds"}</h2>
-        <ul id="sounds-list">
+        <h2 id="playlist-title">${
+          this.playlist ? this.playlist.name : "All Sounds"
+        }</h2>
+        <div id="sounds-list">
           ${(this.playlist ? this.playlist.sounds : this.sounds)
             .map(
               (sound) => `
-            <li class="sound-item">
+            <div class="sound-item">
               <sound-component sound='${JSON.stringify(sound)}' ${
                 this.playlist ? `playlist='${this.playlist.name}'` : ""
               }></sound-component>
-            </li>
+            </div>
           `
             )
             .join("")}
-        </ul>
+        </div>
       </div>
     `;
   }
