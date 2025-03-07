@@ -44,7 +44,8 @@ class PlaylistsComponent extends HTMLElement {
 
       }
       .playlist-item.active {
-        background-color: #e0e0e0;
+        background-color: #353535;
+        color: #ffffff;
       }
       </style>
       <div class="playlists-container">
